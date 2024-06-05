@@ -77,21 +77,16 @@ if uploaded_file is not None:
                     os.makedirs('temp', exist_ok=True)
 
                     # Save the DataFrame to a temporary file
-                    temp_file_path = os.path.join('temp', 'temp_processed_anomalies.xlsx')
+                    temp_file_path = os.path.join('temp', file_name)
                     df.to_excel(temp_file_path, index=False)
 
                     # Download button for processed file
-                    if st.button('Download Processed Excel File'):
-                        with open(temp_file_path, 'rb') as f:
-                            data = f.read()
-                        # Rename the temporary file to the user-specified name
-                        os.rename(temp_file_path, os.path.join('temp', file_name))
-                        st.download_button(
-                            label='Download Processed Excel File',
-                            data=open(os.path.join('temp', file_name), 'rb').read(),
-                            file_name=file_name,
-                            mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                        )
+                    st.download_button(
+                        label='Download Processed Excel File',
+                        data=open(temp_file_path, 'rb').read(),
+                        file_name=file_name,
+                        mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    )
                 except KeyError as e:
                     st.error(f"Error in column selection: {e}")
                 except Exception as e:

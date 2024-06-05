@@ -86,6 +86,7 @@ if uploaded_file is not None:
                         data=open(temp_file_path, 'rb').read(),
                         file_name=file_name,
                         mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                        onclick="this.href = 'data:application/octet-stream;base64,' + btoa(this.download)"
                     )
                 except KeyError as e:
                     st.error(f"Error in column selection: {e}")

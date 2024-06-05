@@ -85,7 +85,7 @@ if uploaded_file is not None:
                         label='Download Processed Excel File',
                         data=open(temp_file_path, 'rb').read(),
                         file_name=file_name,
-                        mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                        mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                         onclick="this.href = 'data:application/octet-stream;base64,' + btoa(this.download)"
                     )
                 except KeyError as e:

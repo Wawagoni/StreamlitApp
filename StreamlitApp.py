@@ -2,7 +2,6 @@ import streamlit as st
 import joblib
 import numpy as np
 import pandas as pd
-import io
 import os
 
 # Get the absolute path to the model file
@@ -74,18 +73,14 @@ if uploaded_file is not None:
                     # Ask for desired file name
                     file_name = st.text_input('Enter the desired file name', 'processed_anomalies.xlsx')
 
-                    # Prepare the output file
-                    output = io.BytesIO()
-                    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-                        df.to_excel(writer, index=False, sheet_name='Sheet1')
-
-                        # Save the ExcelWriter object
-                        writer.save()
+                    # Save the DataFrame to a temporary file
+                    temp_file_path = os.path.join('temp', 'processed_anomalies.xlsx')
+                    df.to_excel(temp_file_path, index=False)
 
                     # Download button for processed file
                     st.download_button(
                         label='Download Processed Excel File',
-                        data=output.getvalue(),
+                        data=open(temp_file_path, 'rb').read(),
                         file_name=file_name,
                         mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
                     )

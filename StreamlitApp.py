@@ -77,7 +77,7 @@ if uploaded_file is not None:
                     os.makedirs('temp', exist_ok=True)
 
                     # Save the DataFrame to a temporary file
-                    temp_file_path = os.path.join('temp', 'processed_anomalies.xlsx')
+                    temp_file_path = os.path.join('temp', file_name)
                     df.to_excel(temp_file_path, index=False)
 
                     # Download button for processed file

@@ -11,11 +11,6 @@ model_path = os.path.abspath('random_forest_model.joblib')
 # Load the trained model
 model = joblib.load(model_path)
 
-
-
-# Load the trained model
-#model = joblib.load('random_forest_model.joblib')
-
 # Title and header
 st.title('Pipeline Anomaly Danger Level Prediction')
 st.header('Input the characteristics of the anomaly:')
@@ -83,6 +78,8 @@ if uploaded_file is not None:
                     output = io.BytesIO()
                     with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
                         df.to_excel(writer, index=False, sheet_name='Sheet1')
+
+                        # Save the ExcelWriter object
                         writer.save()
 
                     # Download button for processed file

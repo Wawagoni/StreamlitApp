@@ -88,7 +88,7 @@ if uploaded_file is not None:
                         os.rename(temp_file_path, os.path.join('temp', file_name))
                         st.download_button(
                             label='Download Processed Excel File',
-                            data=data,
+                            data=open(os.path.join('temp', file_name), 'rb').read(),
                             file_name=file_name,
                             mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
                         )

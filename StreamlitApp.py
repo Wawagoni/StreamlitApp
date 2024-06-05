@@ -2,6 +2,7 @@ import streamlit as st
 import joblib
 import numpy as np
 import pandas as pd
+import io
 import os
 
 # Get the absolute path to the model file
@@ -9,6 +10,11 @@ model_path = os.path.abspath('random_forest_model.joblib')
 
 # Load the trained model
 model = joblib.load(model_path)
+
+
+
+# Load the trained model
+#model = joblib.load('random_forest_model.joblib')
 
 # Title and header
 st.title('Pipeline Anomaly Danger Level Prediction')
@@ -73,25 +79,19 @@ if uploaded_file is not None:
                     # Ask for desired file name
                     file_name = st.text_input('Enter the desired file name', 'processed_anomalies.xlsx')
 
-                    # Create the 'temp' directory if it doesn't exist
-                    os.makedirs('temp', exist_ok=True)
-
-                    # Save the DataFrame to a temporary file
-                    temp_file_path = os.path.join('temp', 'temp_processed_anomalies.xlsx')
-                    df.to_excel(temp_file_path, index=False)
+                    # Prepare the output file
+                    output = io.BytesIO()
+                    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+                        df.to_excel(writer, index=False, sheet_name='Sheet1')
+                        writer.save()
 
                     # Download button for processed file
-                    if st.button('Download Processed Excel File'):
-                        with open(temp_file_path, 'rb') as f:
-                            data = f.read()
-                        # Rename the temporary file to the user-specified name
-                        os.rename(temp_file_path, os.path.join('temp', file_name))
-                        st.download_button(
-                            label='Download Processed Excel File',
-                            data=data,
-                            file_name=file_name,
-                            mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                        )
+                    st.download_button(
+                        label='Download Processed Excel File',
+                        data=output.getvalue(),
+                        file_name=file_name,
+                        mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    )
                 except KeyError as e:
                     st.error(f"Error in column selection: {e}")
                 except Exception as e:

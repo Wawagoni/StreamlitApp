@@ -73,6 +73,9 @@ if uploaded_file is not None:
                     # Ask for desired file name
                     file_name = st.text_input('Enter the desired file name', 'processed_anomalies.xlsx')
 
+                    # Create the 'temp' directory if it doesn't exist
+                    os.makedirs('temp', exist_ok=True)
+
                     # Save the DataFrame to a temporary file
                     temp_file_path = os.path.join('temp', 'processed_anomalies.xlsx')
                     df.to_excel(temp_file_path, index=False)

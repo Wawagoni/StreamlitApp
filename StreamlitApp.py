@@ -95,3 +95,4 @@ if uploaded_file is not None:
                 st.error('Please select valid columns for all attributes.')
     except Exception as e:
         st.error(f"Error in reading file: {e}")
+ 

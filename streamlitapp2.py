@@ -1,4 +1,4 @@
 import streamlit
 import os
-
-streamlit.write(os.getcwd())
+model_path = os.path.join(os.getcwd(), 'random_forest_model.joblib')
+streamlit.write(os.path.exists(model_path))

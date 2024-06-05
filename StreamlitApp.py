@@ -5,8 +5,8 @@ import pandas as pd
 import io
 import os
 
-# Get the full path to the model file
-model_path = os.path.join(os.getcwd(), 'random_forest_model.joblib')
+# Get the absolute path to the model file
+model_path = os.path.abspath('random_forest_model.joblib')
 
 # Load the trained model
 model = joblib.load(model_path)

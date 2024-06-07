@@ -18,7 +18,7 @@ st.header('Input the characteristics of the anomaly:')
 length = st.number_input('Length (mm)', min_value=0.0, step=0.1)
 width = st.number_input('Width (mm)', min_value=0.0, step=0.1)
 depth = st.number_input('Depth (%)', min_value=0.0, max_value=100.0, step=0.1)
-ERF = st.number_input('ERF', min_value=0.0, max_value=10.0 step=0.1)
+ERF = st.number_input('ERF', min_value=0.0, max_value=10.0, step=0.1)
 
 # Predict button
 if st.button('Predict Danger Level'):

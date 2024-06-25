@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import os
 
-# Get the absolute path to the model file
+
 model_path = os.path.abspath('random_forest_model.joblib')
 
 # Load the trained model
